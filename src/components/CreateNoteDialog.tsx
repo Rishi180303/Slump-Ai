@@ -35,76 +35,71 @@ const CreateNoteDialog = (props: Props) => {
       });
       return response.data;
     }
-
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input === "") {
-      window.alert("Please enter a name for your notebook");
+      window.alert("Hey, don't leave your notebook nameless! Give it a title.");
       return;
     }
     createNotebook.mutate(undefined, {
       onSuccess: (data) => {
         const note_id = data.note_id;
-        console.log("created new note:",  note_id );
+        console.log("created new note:", note_id);
         uploadToFirebase.mutate(note_id);
         router.push(`/notebook/${note_id}`);
       },
       onError: (error) => {
         console.error(error);
-        window.alert("Failed to create new notebook");
+        window.alert("Oops! Something went wrong. Try again, creative genius!");
       }
-    })
-  }
+    });
+  };
 
   return (
     <Dialog>
       <DialogTrigger>
-          <div className="border-dashed border-2 flex border-green-600 h-full rounded-lg items-center justify-center sm:flex-col hover:shadow-xl transition hover:-translate-y-1 flex-row p-4">
-           <Plus className="w-6 h-6 text-green-600" strokeWidth={3} />
-            <h2 className="font-semibold text-green-600 sm:mt-2">
-              New Note Book
-            </h2>
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>New Note Book</DialogTitle>
-            <DialogDescription>
-              You can create a new note by clicking the button below.
-            </DialogDescription>
-            <form onSubmit={handleSubmit}>
+        <div className="border-dashed border-2 flex border-purple-600 h-full rounded-lg items-center justify-center sm:flex-col hover:shadow-xl transition hover:-translate-y-1 flex-row p-4">
+          <Plus className="w-6 h-6 text-purple-600" strokeWidth={3} />
+          <h2 className="font-semibold text-purple-600 sm:mt-2">
+            Create Your Next Masterpiece
+          </h2>
+        </div>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>New Notebook? New Ideas!</DialogTitle>
+          <DialogDescription>
+            Give your new notebook a name
+          </DialogDescription>
+          <form onSubmit={handleSubmit}>
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Name..."
+              placeholder="Name your creative burst..."
             />
             <div className="h-4"></div>
             <div className="flex items-center gap-2">
               <Button type="reset" variant={"secondary"}>
-                Cancel
+                Nope, Nevermind
               </Button>
               <Button
-              type="submit"
-              className="bg-green-600"
-              disabled={createNotebook.isPending}
-            >
-              {createNotebook.isPending && (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              )}
-              Create
-            </Button>
+                type="submit"
+                className="bg-purple-600"
+                disabled={createNotebook.isPending}
+              >
+                {createNotebook.isPending && (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                )}
+                Let’s Do This!
+              </Button>
             </div>
-        </form>
-
-
-          </DialogHeader>
-          
-        </DialogContent>
-
+          </form>
+        </DialogHeader>
+      </DialogContent>
     </Dialog>
-  )
-} 
-export default CreateNoteDialog;
+  );
+};
 
+export default CreateNoteDialog;

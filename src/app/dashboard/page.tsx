@@ -27,13 +27,13 @@ const DashboardPage = async (props: Props) => {
                 <div className="flex justify-between items-center md:flex-row flex-col">
                     <div className="flex items-center">
                     <Link href="/">
-                        <Button className="bg-green-600" size="sm">
+                        <Button className="bg-red-600" size="sm">
                         <ArrowLeft className="mr-1 w-4 h-4" />
                         Back
                         </Button>
                     </Link>
                     <div className="w-4"></div>
-                    <h1 className="text-3xl font-bold text-gray-900">My Notes</h1>
+                    <h1 className="text-3xl font-bold text-gray-900">Creative Space</h1>
                     <div className="w-4"></div>
                     <UserButton />
                     </div>
@@ -43,7 +43,7 @@ const DashboardPage = async (props: Props) => {
                 <div className="h-8"></div>
                 {notes.length === 0 && (
                     <div className="text-center">
-                        <h2 className="text-xl text-gray-500">You have no notes yet.</h2>
+                        <h2 className="text-xl text-gray-500">It’s a bit quiet here...</h2>
                      </div>
                 )}
 
